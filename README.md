@@ -19,7 +19,6 @@ A Social Graph backend based on Neo4j graph database & Java Spring
   <img src="Maven1.png" alt="Maven1" width="45%" />
 </div>
 7. Run the Spring backend server using the command: java -jar target/spring-boot-neo4j-0.0.1-SNAPSHOT.jar (or the jar file name generated in the target folder)
-
 8. Test the API using Postman (import Postman using Postman file in the repo) 
 <img src="PostmanIllustration.png" alt="Postman" width="100%" />
 
