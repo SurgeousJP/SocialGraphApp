@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "537b237d-2515-465f-a0be-5fbab7614df1",
+		"name": "[J2EE] - Social Graph Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39695194"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "All Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/user/getAll",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"user",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User by Mail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{graph-server}}/user/getByMail/Elysia@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"user",
+								"getByMail",
+								"Elysia@example.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Followers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{graph-server}}/user/getAllFollowers/Vita@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"user",
+								"getAllFollowers",
+								"Vita@example.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Followers by Mail",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"Firefly@example.com\",\r\n  \"imageUrl\": \"https://pbs.twimg.com/profile_images/1787156061905969152/2av7MUE0_400x400.jpg\",\r\n  \"firstName\": \"Firefly\",\r\n  \"lastName\": \"Type-IV\",\r\n  \"phoneNumber\": \"123-456-7890\",\r\n  \"isTravelling\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/user/addUser",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"user",
+								"addUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"email\": \"surgeous1@example.com\",\r\n    \"imageUrl\": \"https://i.pinimg.com/736x/cd/0e/0d/cd0e0dbb19f35e33bb6e68b4f47d0db8.jpg\",\r\n    \"firstName\": \"Jack1Update\",\r\n    \"lastName\": \"Doe1Update\",\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"following\": [],\r\n    \"likedPosts\": [],\r\n    \"myPosts\": [],\r\n    \"travelling\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/user/updateUser",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"user",
+								"updateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"surgeousFORDELETE@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/user/deleteProfile",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"user",
+								"deleteProfile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "All Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{graph-server}}/post/getAll",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"post",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Lingsha Post E\",\r\n  \"likes\": 0,\r\n  \"email\": \"Lingsha@example.com\",\r\n  \"latitude\": 60,\r\n  \"longitude\": 20,\r\n  \"location\": \"Japan\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/post/addPost",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"post",
+								"addPost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follower's Posts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Liked Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{graph-server}}/post/getLikedPosts/surgeous1@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"post",
+								"getLikedPosts",
+								"surgeous1@example.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Like Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 12,\r\n    \"description\": \"Lingsha Post E\",\r\n    \"likes\": 0,\r\n    \"email\": \"Lingsha@example.com\",\r\n    \"latitude\": 60.0,\r\n    \"longitude\": 20.0,\r\n    \"location\": \"Japan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/post/likePost?mail=Vita@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"post",
+								"likePost"
+							],
+							"query": [
+								{
+									"key": "mail",
+									"value": "Vita@example.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Follows",
+			"item": [
+				{
+					"name": "Follow User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"email\": \"Lingsha@example.com\",\r\n    \"imageUrl\": \"https://www.prydwen.gg/static/e19caf4a49f4f6ff58aef7592a265794/c9885/hsr_card_lingsha.png\",\r\n    \"firstName\": \"Lingsha\",\r\n    \"lastName\": \"Xiangyou\",\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"following\": [],\r\n    \"likedPosts\": [],\r\n    \"myPosts\": [],\r\n    \"travelling\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/follows/followUser?mail=Vita@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"follows",
+								"followUser"
+							],
+							"query": [
+								{
+									"key": "mail",
+									"value": "Vita@example.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"email\": \"Lingsha@example.com\",\r\n    \"imageUrl\": \"https://www.prydwen.gg/static/e19caf4a49f4f6ff58aef7592a265794/c9885/hsr_card_lingsha.png\",\r\n    \"firstName\": \"Lingsha\",\r\n    \"lastName\": \"Xiangyou\",\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"following\": [],\r\n    \"likedPosts\": [],\r\n    \"myPosts\": [],\r\n    \"travelling\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/follows/unfollowUser?mail=Vita@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"follows",
+								"unfollowUser"
+							],
+							"query": [
+								{
+									"key": "mail",
+									"value": "Vita@example.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Is Follow",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{graph-server}}/follows/getFollowing/Elysia@example.com/Vita@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"follows",
+								"getFollowing",
+								"Elysia@example.com",
+								"Vita@example.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
