@@ -43,8 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         if(userRepository.getByEmail(user.getEmail()) == null){
-            userRepository.addUser(user.getEmail(), user.getImageUrl(), user.getFirstName(), user.getLastName(),
-                    user.getPhoneNumber(), user.getTravelling());
+            userRepository.addUser(user.getEmail(), user.getImageUrl(), user.getFirstName(), user.getLastName());
         }
     }
 
@@ -67,8 +66,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-        userRepository.updateUser(user.getEmail(), user.getImageUrl(), user.getFirstName(), user.getLastName(),
-                user.getPhoneNumber(), user.getTravelling());
+        userRepository.updateUser(user.getEmail(), user.getImageUrl(), user.getFirstName(), user.getLastName());
     }
 
     @Override

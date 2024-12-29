@@ -22,11 +22,6 @@ public class User {
     private String firstName;
     @Property(name = "lastName")
     private String lastName;
-    @Property(name = "phoneNumber")
-    private String phoneNumber;
-    @Property(name = "travelling")
-    private Boolean isTravelling;
-
     @Relationship(type = "Follows", direction = Relationship.Direction.OUTGOING)
     private List<User> following;
 
@@ -38,15 +33,12 @@ public class User {
 
     public User(String email,
                 String imageUrl, String firstName,
-                String lastName, String phoneNumber,
-                Boolean isTravelling, List<User> following, List<Post> likedPosts, List<Post> myPosts) {
+                String lastName, List<User> following, List<Post> likedPosts, List<Post> myPosts) {
         this.id = null;
         this.email = email;
         this.imageUrl = imageUrl;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.isTravelling = isTravelling;
         this.following = following;
         this.likedPosts = likedPosts;
         this.myPosts = myPosts;
@@ -57,17 +49,9 @@ public class User {
             return this;
         } else {
             return new User(this.email, this.imageUrl, this.firstName,
-                    this.lastName, this.phoneNumber, this.isTravelling, this.following, this.likedPosts,
+                    this.lastName, this.following, this.likedPosts,
                     this.myPosts);
         }
-    }
-
-    public Boolean getTravelling() {
-        return isTravelling;
-    }
-
-    public void setTravelling(Boolean travelling) {
-        isTravelling = travelling;
     }
 
     public List<User> getFollowing() {
@@ -116,22 +100,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public boolean isTravelling() {
-        return isTravelling;
-    }
-
-    public void setTravelling(boolean travelling) {
-        isTravelling = travelling;
     }
 
     public Long getId() {

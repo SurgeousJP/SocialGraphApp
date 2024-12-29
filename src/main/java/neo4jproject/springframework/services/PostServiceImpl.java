@@ -37,8 +37,7 @@ public class PostServiceImpl implements  PostService{
     @Override
     public void addPost(Post post) {
         User user = userRepository.getByEmail(post.getEmail());
-        Long postId = postRepository.addPostAndReturnId(post.getDescription(), post.getLikes(), post.getLatitude(), post.getLongitude(),
-                post.getLocation(), post.getEmail());
+        Long postId = postRepository.addPostAndReturnId(post.getDescription(), post.getLikes(), post.getEmail());
         postedRepository.addPosted(post.getEmail(), postId);
     }
 

@@ -9,17 +9,15 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface PostRepository extends Neo4jRepository<Post, Long> {
-    @Query("CREATE(Post:Post {description: $description, likes: $likes, latitude:$latitude, longitude:$longitude, location:$location, email:$email})")
+    @Query("CREATE(Post:Post {description: $description, likes: $likes, email:$email})")
     void addPost(@Param("description") String description,
-                 @Param("likes")Integer likes,
-                 @Param("latitude")Double latitude, @Param("longitude")Double longitude,
-                 @Param("location")String location, @Param("email")String email);
+                 @Param("likes") Integer likes,
+                 @Param("email") String email);
 
-    @Query("CREATE (p:Post {description: $description, likes: $likes, latitude: $latitude, longitude: $longitude, location: $location, email: $email}) RETURN id(p)")
+    @Query("CREATE (p:Post {description: $description, likes: $likes, email: $email}) RETURN id(p)")
     Long addPostAndReturnId(@Param("description") String description,
-                            @Param("likes")Integer likes,
-                            @Param("latitude")Double latitude, @Param("longitude")Double longitude,
-                            @Param("location")String location, @Param("email")String email);
+                            @Param("likes") Integer likes,
+                            @Param("email") String email);
 
     @Query("MATCH (n:Post)\n" +
             "WHERE id(b) = $postId\n" +

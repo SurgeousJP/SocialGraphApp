@@ -13,12 +13,6 @@ public class Post {
     private Integer likes;
     @Property(name = "email")
     private String email;
-    @Property(name = "latitude")
-    private Double latitude;
-    @Property(name = "longitude")
-    private Double longitude;
-    @Property(name = "location")
-    private String location;
 
     public String getEmail() {
         return email;
@@ -28,22 +22,11 @@ public class Post {
         this.email = email;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public Post(String description, Integer likes, Double latitude, Double longitude,
-                String email, String location) {
+    public Post(String description, Integer likes,
+                String email) {
         this.id = null;
         this.description = description;
         this.likes = likes;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.location = location;
         this.email = email;
     }
 
@@ -51,7 +34,7 @@ public class Post {
         if (this.id.equals(id)) {
             return this;
         } else {
-            return new Post(this.description, this.likes, this.latitude, this.longitude, this.email, this.location);
+            return new Post(this.description, this.likes, this.email);
         }
     }
 
@@ -79,19 +62,4 @@ public class Post {
         this.likes = likes;
     }
 
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 }
