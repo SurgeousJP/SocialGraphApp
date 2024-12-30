@@ -75,7 +75,4 @@ public class PostController {
         }
         return HttpStatus.ACCEPTED;
     }
-
-
-
 }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { getUserByEmail, IUserData } from "../apis/api";
+import { getUserByEmail, IPost, IUserData } from "../apis/api";
 import Banner from "../components/Banner";
 import Post from "../components/Post";
 
 // UserProfile component to display user data
 const UserProfile = () => {
-  const [userData, setUserData] = useState<IUserData | null>(null);
+  const [userData, setUserData] = useState<IPost | null>(null);
 
   useEffect(() => {
     // Fetch user data using the email
@@ -18,7 +18,11 @@ const UserProfile = () => {
       });
   }, []);
 
-  if (!userData) {
+  useEffect(() => {
+    console.log("User data: ", userData);
+  }, [userData]);
+
+  if (userData === undefined || userData === null) {
     return <div>Loading...</div>; // Show loading state until user data is fetched
   }
 
@@ -49,18 +53,20 @@ const UserProfile = () => {
         <h2 className="text-2xl font-semibold">Posts</h2>
         <div className="space-y-4">
           {/* Map through user's posts and display them */}
-          {userData.myPosts.map((post) => (
-            <div key={post.id} className="bg-white rounded-lg shadow-md p-4">
-              <Post
-                post={post}
-                author={`${userData.firstName} ${userData.lastName}`}
-                authorImage={userData.imageUrl}
-                timeAgo={new Date()}
-                postImage={"https://via.placeholder.com/600x300"}
-                comments={200}
-              />
-            </div>
-          ))}
+          {userData !== undefined &&
+            userData !== null &&
+            userData.map((post) => (
+              <div key={post.id} className="bg-white rounded-lg shadow-md p-4">
+                <Post
+                  post={post}
+                  author={`${userData.firstName} ${userData.lastName}`}
+                  authorImage={userData.imageUrl}
+                  timeAgo={new Date()}
+                  postImage={"https://via.placeholder.com/600x300"}
+                  comments={200}
+                />
+              </div>
+            ))}
         </div>
       </div>
     </div>

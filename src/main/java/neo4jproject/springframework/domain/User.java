@@ -22,6 +22,10 @@ public class User {
     private String firstName;
     @Property(name = "lastName")
     private String lastName;
+
+    @Property(name = "password")
+    private String password;
+
     @Relationship(type = "Follows", direction = Relationship.Direction.OUTGOING)
     private List<User> following;
 
@@ -33,12 +37,13 @@ public class User {
 
     public User(String email,
                 String imageUrl, String firstName,
-                String lastName, List<User> following, List<Post> likedPosts, List<Post> myPosts) {
+                String lastName, String password, List<User> following, List<Post> likedPosts, List<Post> myPosts) {
         this.id = null;
         this.email = email;
         this.imageUrl = imageUrl;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         this.following = following;
         this.likedPosts = likedPosts;
         this.myPosts = myPosts;
@@ -49,7 +54,7 @@ public class User {
             return this;
         } else {
             return new User(this.email, this.imageUrl, this.firstName,
-                    this.lastName, this.following, this.likedPosts,
+                    this.lastName, this.password, this.following, this.likedPosts,
                     this.myPosts);
         }
     }
@@ -117,5 +122,13 @@ public class User {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

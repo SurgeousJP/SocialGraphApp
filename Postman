@@ -59,7 +59,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Followers",
+					"name": "Get User's Followers",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -161,6 +161,54 @@
 							"path": [
 								"user",
 								"deleteProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    email: \"\",\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Follows of Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{graph-server}}/user/allMyFollowers/Firefly@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"user",
+								"allMyFollowers",
+								"Firefly@example.com"
 							]
 						}
 					},
@@ -273,6 +321,14 @@
 								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User's Post By Mail",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

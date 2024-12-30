@@ -21,13 +21,13 @@ export interface IUserData {
 
 // Axios instance for making API calls
 const api = axios.create({
-  baseURL: "http://localhost:3000/rest/neo4j/user",
+  baseURL: "http://localhost:3000/rest/neo4j",
 });
 
 // Fetch user data by email
 export const getUserByEmail = async (email: string): Promise<IUserData> => {
   try {
-    const response = await api.get<IUserData>(`/getByMail/${email}`);
+    const response = await api.get<IUserData>(`/post?mail=${email}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);

@@ -19,13 +19,13 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "return n")
     User getByEmail(@Param("email") String email);
 
-    @Query("CREATE(User:User {email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName})")
+    @Query("CREATE(User:User {email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName, password: $password})")
     void addUser(@Param("email") String email, @Param("imageUrl") String imageUrl,
-                 @Param("firstName") String firstName, @Param("lastName") String lastName);
+                 @Param("firstName") String firstName, @Param("lastName") String lastName, @Param("password") String password);
 
-    @Query("CREATE(User:User {email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName})")
+    @Query("CREATE(User:User {email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName, password: $password})")
     void addUserStart(@Param("email") String email, @Param("imageUrl") String imageUrl,
-                      @Param("firstName") String firstName, @Param("lastName") String lastName);
+                      @Param("firstName") String firstName, @Param("lastName") String lastName, @Param("password") String password);
 
     @Query("MATCH (n:User)\n" +
             "WHERE n.email = $email\n" +
@@ -34,10 +34,10 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
 
     @Query("MATCH (n:User)\n" +
             "WHERE n.email = $email\n" +
-            "SET n={email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName}")
+            "SET n={email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName, password: $password}")
     void updateUser(@Param("email") String email
             , @Param("imageUrl") String imageUrl, @Param("firstName") String firstName
-            , @Param("lastName") String lastName);
+            , @Param("lastName") String lastName, @Param("password") String password);
 
     @Query("MATCH (n:User) DETACH DELETE n")
     void deleteAllFirma();
