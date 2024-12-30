@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  color: #d3d6da;
+}
+.sticky-aside {
+  position: fixed;
+  top: 72px;
+  height: 100vh;
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+ion-icon {
+  font-size: 32px;
+}

@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class PostServiceImpl implements  PostService{
+public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final PostedRepository postedRepository;
@@ -49,5 +49,10 @@ public class PostServiceImpl implements  PostService{
     @Override
     public Collection<Post> findLikedPosts(String email) {
         return postRepository.findLikedPosts(email);
+    }
+
+    @Override
+    public Collection<Post> getPostsByMail(String email) {
+        return postRepository.getAllPostsByMail(email);
     }
 }

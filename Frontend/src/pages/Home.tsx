@@ -1,83 +1,65 @@
+import "ionicons/icons";
+import { mockText } from "../constants/mockdata";
+
 const Home = () => {
   return (
-    <div className="overflow-y-hidden">
-      <header className="bg-pink-500 sticky top-0 flex justify-between p-4 items-center border-box h-[72px]">
+    <div className="">
+      <header className="bg-[#252728] sticky top-0 left-0 right-0 flex justify-between p-4 items-center border-box h-[72px] border-[#2d2e2f] border-b-[0.25px]">
         <div className="flex flex-row space-x-4 items-center">
           <img
-            className="w-8 h-8 object-contain rounded-full"
+            className="w-[40px] h-[40px] object-contain rounded-full"
             src="https://i.pinimg.com/736x/cd/0e/0d/cd0e0dbb19f35e33bb6e68b4f47d0db8.jpg"
           />
-          <div className="flex space-x-2 items-center rounded-xl p-2 bg-white">
-            <input className="focus:outline-none" placeholder="Search users" />
-            <img
-              className="w-4 h-4"
-              src="https://www.svgrepo.com/show/7109/search.svg"
+          <div className="flex space-x-2 items-center rounded-3xl p-2 px-4 bg-[#333334]">
+            <input
+              className="focus:outline-none bg-[#333334]"
+              placeholder="Search users"
             />
+            <ion-icon
+              className="text-[#333334]"
+              name="search"
+              size="small"
+            ></ion-icon>
           </div>
         </div>
 
-        <img
-          className="w-8 h-8 object-contain rounded-full"
-          src="https://i.pinimg.com/736x/cd/0e/0d/cd0e0dbb19f35e33bb6e68b4f47d0db8.jpg"
-        />
+        <div className="relative">
+          <img
+            id="account"
+            className="w-[40px] h-[40px] object-contain rounded-full"
+            src="https://i.pinimg.com/736x/cd/0e/0d/cd0e0dbb19f35e33bb6e68b4f47d0db8.jpg"
+          />
+          <div></div>
+        </div>
       </header>
-      <body className="bg-slate-800 flex flex-row overflow-hidden">
-        <section id='options' className="bg-cyan-500 basis-1/4">
-          Options sidebar
+      <body className="bg-[#1c1c1d] flex flex-row items-start min-h-[100vh]">
+        <section
+          id="options"
+          className="w-[300px] flex-1 sticky-aside left-0 pt-2 px-2"
+        >
+          <div
+            id="option-item"
+            className="flex items-center space-x-3 p-4 hover:bg-[#333334] rounded-lg"
+          >
+            <img
+              src="https://pm1.aminoapps.com/8595/72348821f87067564056cddf94630fdef79d7ccbr1-696-696v2_uhq.jpg"
+              className="w-[32px] h-[32px] rounded-full"
+            />
+            <span className="font-semibold">SurgeousJP</span>
+          </div>
+          <div
+            id="option-item"
+            className="flex items-center space-x-3 p-4 hover:bg-[#333334] rounded-lg"
+          >
+            <ion-icon name="people-outline" className="text-[32px]"></ion-icon>
+            <span className="font-semibold">Followers</span>
+          </div>
         </section>
-        <section id='content' className="basis-1/2 overflow-y-auto">
-          This is body view Lorem Ipsum is simply dummy text of the printing and
-          typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book. It has survived
-          not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in
-          the 1960s with the release of Letraset sheets containing Lorem Ipsum
-          passages, and more recently with desktop publishing software like
-          Aldus PageMaker including versions of Lorem Ipsum. Why do we use it?
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. Many desktop publishing packages and web
-          page editors now use Lorem Ipsum as their default model text, and a
-          search for 'lorem ipsum' will uncover many web sites still in their
-          infancy. Various versions have evolved over the years, sometimes by
-          accident, sometimes on purpose (injected humour and the like). Where
-          does it come from? Contrary to popular belief, Lorem Ipsum is not
-          simply random text. It has roots in a piece of classical Latin
-          literature from 45 BC, making it over 2000 years old. Richard
-          McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-          looked up one of the more obscure Latin words, consectetur, from a
-          Lorem Ipsum passage, and going through the cites of the word in
-          classical literature, discovered the undoubtable source. Lorem Ipsum
-          comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
-          Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.
-          This book is a treatise on the theory of ethics, very popular during
-          the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
-          amet..", comes from a line in section 1.10.32. The standard chunk of
-          Lorem Ipsum used since the 1500s is reproduced below for those
-          interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
-          Malorum" by Cicero are also reproduced in their exact original form,
-          accompanied by English versions from the 1914 translation by H.
-          Rackham. This book is a treatise on the theory of ethics, very popular
-          during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum
-          dolor sit amet..", comes from a line in section 1.10.32. The standard
-          chunk of Lorem Ipsum used since the 1500s is reproduced below for
-          those interested. Sections 1.10.32 and 1.10.33 from "de Finibus
-          Bonorum et Malorum" by Cicero are also reproduced in their exact
-          original form, accompanied by English versions from the 1914
-          translation by H. Rackham. This book is a treatise on the theory of
-          ethics, very popular during the Renaissance. The first line of Lorem
-          Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
-          1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is
-          reproduced below for those interested. Sections 1.10.32 and 1.10.33
-          from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in
-          their exact original form, accompanied by English versions from the
-          1914 translation by H. Rackham.
+        <section id="content" className="mx-[300px] overflow-y-auto flex-1">
+          {mockText}
         </section>
-        <section id='options' className="bg-cyan-500 basis-1/4">
-          Options sidebar
+        <section id="options" className="w-[300px] flex-1 sticky-aside right-0">
+          <span>Followers</span>
         </section>
       </body>
     </div>

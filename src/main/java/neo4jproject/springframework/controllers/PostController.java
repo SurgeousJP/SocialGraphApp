@@ -37,7 +37,7 @@ public class PostController {
         } catch (RuntimeException e) {
             return HttpStatus.ACCEPTED;
         }
-        return HttpStatus.ACCEPTED;
+        return HttpStatus.BAD_REQUEST;
     }
 
 
@@ -54,6 +54,14 @@ public class PostController {
     public Collection<Post> findLikedPosts(@PathVariable("mail")String email) {
         return postService.findLikedPosts(email);
     }
+
+    @GetMapping(
+            value = ""
+    )
+    public Collection<Post> findPostsByMail(@RequestParam("mail")String mail) {
+        return postService.getPostsByMail(mail);
+    }
+
 
     @PostMapping(
             value = "/likePost",

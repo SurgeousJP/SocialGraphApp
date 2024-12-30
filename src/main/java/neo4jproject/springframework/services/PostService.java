@@ -16,4 +16,6 @@ public interface PostService {
     Collection<Post> getMyFollowersPosts(String email);
 
     Collection<Post> findLikedPosts(String email);
+
+    Collection<Post> getPostsByMail (String email);
 }

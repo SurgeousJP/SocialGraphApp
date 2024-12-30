@@ -32,4 +32,9 @@ public interface PostRepository extends Neo4jRepository<Post, Long> {
 
     @Query("MATCH(n:User{email: $mail})-[l:Liked]->(d:Post) return d")
     Collection<Post> findLikedPosts(@Param("mail") String email);
+
+    @Query("MATCH (a: User)-[r:Posted]->(b: Post) "
+            + "WHERE a.email = $mail "
+            + "RETURN b")
+    Collection<Post> getAllPostsByMail (@Param("mail") String email);
 }
