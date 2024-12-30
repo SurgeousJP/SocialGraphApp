@@ -11,7 +11,7 @@ export default function useRouteElement() {
     },
     {
       element: <UserProfile />,
-      path: "/user",
+      path: "/user/:mail",
     },
     {
       element: <Login />,

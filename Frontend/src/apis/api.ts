@@ -27,6 +27,15 @@ const api = axios.create({
 // Fetch user data by email
 export const getUserByEmail = async (email: string): Promise<IUserData> => {
   try {
+    const response = await api.get<IUserData>(`/user/getByMail/${email}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+export const getUserPostByEmail = async (email: string): Promise<IPost[]> => {
+  try {
     const response = await api.get<IUserData>(`/post?mail=${email}`);
     return response.data;
   } catch (error) {

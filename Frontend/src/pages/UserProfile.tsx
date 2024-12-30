@@ -1,29 +1,49 @@
 import { useEffect, useState } from "react";
-import { getUserByEmail, IPost, IUserData } from "../apis/api";
+import { useParams } from "react-router-dom";
+import {
+  getUserByEmail,
+  getUserPostByEmail,
+  IPost,
+  IUserData,
+} from "../apis/api";
 import Banner from "../components/Banner";
 import Post from "../components/Post";
 
 // UserProfile component to display user data
 const UserProfile = () => {
-  const [userData, setUserData] = useState<IPost | null>(null);
+  const { mail } = useParams<{ mail: string }>();
+  const [userData, setUserData] = useState<IUserData | null>(null);
+  const [postData, setPostData] = useState<IPost[] | null>(null);
 
   useEffect(() => {
-    // Fetch user data using the email
-    getUserByEmail("Firefly@example.com")
-      .then((data) => {
-        setUserData(data); // Set user data in state
-      })
-      .catch((error) => {
-        console.error("Error loading user data:", error);
-      });
-  }, []);
+    if (mail) {
+      // Fetch user data using the email from the URL
+      getUserByEmail(mail)
+        .then((data) => {
+          console.log("User data:", data);
+          setUserData(data); // Set user data in state
+        })
+        .catch((error) => {
+          console.error("Error loading user data:", error);
+        });
+    }
+  }, [mail]);
 
   useEffect(() => {
-    console.log("User data: ", userData);
-  }, [userData]);
+    if (mail) {
+      getUserPostByEmail(mail)
+        .then((data) => {
+          console.log("User post:", data);
+          setPostData(data);
+        })
+        .catch((error) => {
+          console.error("Error loading user post:", error);
+        });
+    }
+  }, [mail]);
 
-  if (userData === undefined || userData === null) {
-    return <div>Loading...</div>; // Show loading state until user data is fetched
+  if (!userData || !postData) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -41,7 +61,7 @@ const UserProfile = () => {
             />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-3xl font-bold text-black">
               {userData.firstName} {userData.lastName}
             </h1>
             <p className="text-lg text-gray-500">Web Developer</p>
@@ -50,23 +70,19 @@ const UserProfile = () => {
       </div>
 
       <div className="mt-6">
-        <h2 className="text-2xl font-semibold">Posts</h2>
+        <h2 className="text-2xl font-semibold text-black">Posts</h2>
         <div className="space-y-4">
           {/* Map through user's posts and display them */}
-          {userData !== undefined &&
-            userData !== null &&
-            userData.map((post) => (
-              <div key={post.id} className="bg-white rounded-lg shadow-md p-4">
-                <Post
-                  post={post}
-                  author={`${userData.firstName} ${userData.lastName}`}
-                  authorImage={userData.imageUrl}
-                  timeAgo={new Date()}
-                  postImage={"https://via.placeholder.com/600x300"}
-                  comments={200}
-                />
-              </div>
-            ))}
+          {postData.map((post) => (
+            <Post
+              post={post}
+              author={`${userData.firstName} ${userData.lastName}`}
+              authorImage={userData.imageUrl}
+              timeAgo={new Date()}
+              postImage={"https://via.placeholder.com/600x300"}
+              comments={0}
+            />
+          ))}
         </div>
       </div>
     </div>
