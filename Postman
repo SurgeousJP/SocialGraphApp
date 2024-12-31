@@ -45,14 +45,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{graph-server}}/user/getByMail/Elysia@example.com",
+							"raw": "{{graph-server}}/user/getByMail/Firefly@example.com",
 							"host": [
 								"{{graph-server}}"
 							],
 							"path": [
 								"user",
 								"getByMail",
-								"Elysia@example.com"
+								"Firefly@example.com"
 							]
 						}
 					},
@@ -173,7 +173,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    email: \"\",\r\n    \r\n}",
+							"raw": "{\r\n    \"email\": \"Aglaea@example.com\",\r\n    \"password\": \"test123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -244,7 +244,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"description\": \"Lingsha Post E\",\r\n  \"likes\": 0,\r\n  \"email\": \"Lingsha@example.com\",\r\n  \"latitude\": 60,\r\n  \"longitude\": 20,\r\n  \"location\": \"Japan\"\r\n}\r\n",
+							"raw": "{\r\n  \"description\": \"Elysia Post A\",\r\n  \"likes\": 0,\r\n  \"email\": \"Elysia@example.com\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -328,7 +328,22 @@
 					"name": "Get User's Post By Mail",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{graph-server}}/post?mail=Firefly@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"post"
+							],
+							"query": [
+								{
+									"key": "mail",
+									"value": "Firefly@example.com"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -418,6 +433,65 @@
 								"getFollowing",
 								"Elysia@example.com",
 								"Vita@example.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "Image Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/tuanb/Downloads/Pictures/Download Pics/nijt70blsn8d1.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/media/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"media",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://res.cloudinary.com/dvqcuz22w/image/upload/v1735629520/wrpthdbdbswpo6h6jfmg.jpg",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://res.cloudinary.com/dvqcuz22w/image/upload/v1735629520/wrpthdbdbswpo6h6jfmg.jpg",
+							"protocol": "https",
+							"host": [
+								"res",
+								"cloudinary",
+								"com"
+							],
+							"path": [
+								"dvqcuz22w",
+								"image",
+								"upload",
+								"v1735629520",
+								"wrpthdbdbswpo6h6jfmg.jpg"
 							]
 						}
 					},

@@ -36,7 +36,7 @@ export const getUserByEmail = async (email: string): Promise<IUserData> => {
 };
 export const getUserPostByEmail = async (email: string): Promise<IPost[]> => {
   try {
-    const response = await api.get<IUserData>(`/post?mail=${email}`);
+    const response = await api.get<IPost[]>(`/post?mail=${email}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
