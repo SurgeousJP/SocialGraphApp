@@ -1,0 +1,45 @@
+name: Build JAR
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Java (you can specify the version)
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17" # Specify your Java version
+          distribution: "temurin" # Options: temurin, zulu, etc.
+
+      # Cache Maven dependencies for faster builds
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Build the JAR file
+      - name: Build with Maven
+        run: mvn clean package
+
+      # Save the JAR as an artifact using v4
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/*.jar # Update path if your JAR is output elsewhere

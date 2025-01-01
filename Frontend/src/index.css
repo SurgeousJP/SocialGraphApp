@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  color: #d3d6da;
+  color: #343435;
 }
 .sticky-aside {
   position: fixed;
