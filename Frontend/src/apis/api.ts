@@ -92,3 +92,27 @@ export const getAllFollowersByEmail = async (
     throw error;
   }
 };
+
+export const likePost = async (
+  email: string,
+  postId: number,
+  description: string,
+  likes: number
+): Promise<IPost> => {
+  try {
+    const response = await api.post(
+      `/post/likePost?mail=${encodeURIComponent(email)}`,
+      {
+        id: postId,
+        description,
+        likes: likes + 1,
+        email,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error liking the post:", error);
+    throw error;
+  }
+};

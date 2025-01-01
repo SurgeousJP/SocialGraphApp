@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getUserByEmail, IPost } from "../apis/api";
+import { getUserByEmail, IPost, likePost } from "../apis/api";
 
+// Interface for the Post component props
 interface PostProps {
   post: IPost;
   authorEmail: string;
@@ -9,9 +10,12 @@ interface PostProps {
   comments: number;
 }
 
-const Post = ({ post: { description, likes }, authorEmail }: PostProps) => {
+const Post = ({ post: { description, likes, id }, authorEmail }: PostProps) => {
   const [authorName, setAuthorName] = useState<string>("");
   const [authorImage, setAuthorImage] = useState<string>("");
+  const [postLikes, setPostLikes] = useState<number>(likes); // Track likes for the current post
+  const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchAuthorData = async () => {
@@ -26,6 +30,28 @@ const Post = ({ post: { description, likes }, authorEmail }: PostProps) => {
 
     fetchAuthorData();
   }, [authorEmail]);
+
+  const handleLikePost = async () => {
+    const userEmail = localStorage.getItem("userEmail");
+
+    if (userEmail) {
+      setIsLoading(true);
+      try {
+        const updatedPost = await likePost(
+          userEmail,
+          id,
+          description,
+          postLikes
+        );
+        setPostLikes(updatedPost.likes);
+        setIsLiked(true);
+      } catch (error) {
+        console.error("Error handling like post:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -56,17 +82,22 @@ const Post = ({ post: { description, likes }, authorEmail }: PostProps) => {
             src="https://images.vexels.com/content/223246/preview/like-icon-flat-8f6a3f.png"
             alt="Like Icon"
           />
-          <span className="text-blue-500 font-medium">{likes}</span>
+          <span className="text-blue-500 font-medium">{postLikes}</span>
         </div>
-        {/* Action Buttons */}
-        <div className="flex flex-row space-x-1 items-center">
-          <ion-icon
-            className="text-gray-500"
-            name="thumbs-up"
-            size="small"
-          ></ion-icon>
+        <button
+          onClick={handleLikePost}
+          className={`flex flex-row space-x-1 items-center ${
+            isLiked ? "text-blue-500" : "text-gray-500"
+          } ${isLoading ? "cursor-not-allowed" : ""}`}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <span className="loader" /> // You can use a CSS loader or spinner
+          ) : (
+            <ion-icon name={isLiked ? "thumbs-up" : "thumbs-up"} size="small" />
+          )}
           <span>Like</span>
-        </div>
+        </button>
       </div>
     </div>
   );
