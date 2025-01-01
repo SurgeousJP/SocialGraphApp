@@ -61,7 +61,34 @@ export const getUserPostByEmail = async (email: string): Promise<IPost[]> => {
     const response = await api.get<IPost[]>(`/post?mail=${email}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    console.error("Error fetching post data:", error);
+    throw error;
+  }
+};
+export const getFollowerPostByEmail = async (
+  email: string
+): Promise<IPost[]> => {
+  try {
+    const response = await api.get<IPost[]>(`/post/getFollowersPosts/${email}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching post data:", error);
+    throw error;
+  }
+};
+
+export const getAllFollowersByEmail = async (
+  email: string
+): Promise<IUserData[]> => {
+  try {
+    const response = await api.get<IUserData[]>(
+      `/user/getAllFollowers/${email}`
+    );
+    console.log("Followers data:", response);
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching followers data:", error);
     throw error;
   }
 };

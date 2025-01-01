@@ -1,35 +1,70 @@
 import "ionicons/icons";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getUserByEmail, IPost, IUserData } from "../apis/api";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  getAllFollowersByEmail,
+  getFollowerPostByEmail,
+  getUserByEmail, // Make sure to import the new function
+  IPost,
+  IUserData,
+} from "../apis/api";
 import Follower from "../components/Follower";
+import Post from "../components/Post";
 
 const Home = () => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [user, setUser] = useState<IUserData | null>(null);
-  const [post, setPost] = useState<IPost | null>(null);
+  const [posts, setPosts] = useState<IPost[] | null>(null);
+  const [followers, setFollowers] = useState<IUserData[] | null>(null); // Add state for followers
   const [loading, setLoading] = useState(true);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [loadingFollowers, setLoadingFollowers] = useState(false); // Add state for loading followers
+  const userEmail = localStorage.getItem("userEmail");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const userEmail = localStorage.getItem("userEmail");
-
     if (userEmail) {
-      // Fetch user data using the API
       fetchUserData(userEmail);
+      fetchPosts(userEmail);
+      fetchFollowers(userEmail); // Fetch followers when the user data is fetched
     } else {
+      navigate("/login");
       setLoading(false);
     }
   }, []);
 
   const fetchUserData = async (email: string) => {
     try {
-      setLoading(true); // Set loading to true before making the request
+      setLoading(true);
       const userData = await getUserByEmail(email);
-      setUser(userData); // Set user data in state
-      setLoading(false); // Set loading to false after data is fetched
+      setUser(userData);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching user data:", error);
-      setLoading(false); // Set loading to false if there's an error
+      setLoading(false);
+    }
+  };
+
+  const fetchPosts = async (email: string) => {
+    try {
+      setLoadingPosts(true);
+      const postsData = await getFollowerPostByEmail(email);
+      setPosts(postsData);
+      setLoadingPosts(false);
+    } catch (error) {
+      console.error("Error fetching posts data:", error);
+      setLoadingPosts(false);
+    }
+  };
+
+  const fetchFollowers = async (email: string) => {
+    try {
+      setLoadingFollowers(true);
+      const followersData = await getAllFollowersByEmail(email);
+      setFollowers(followersData);
+      setLoadingFollowers(false);
+    } catch (error) {
+      console.error("Error fetching followers data:", error);
+      setLoadingFollowers(false);
     }
   };
 
@@ -57,14 +92,24 @@ const Home = () => {
         </div>
 
         <div className="relative">
-          <Link
-            to="/login"
-            className="px-4 py-2 bg-blue-500 cursor-pointer rounded-lg text-white"
-          >
-            Sign in
-          </Link>
+          {!userEmail ? (
+            <Link
+              to="/login"
+              className="px-4 py-2 bg-blue-500 cursor-pointer rounded-lg text-white"
+            >
+              Sign in
+            </Link>
+          ) : (
+            <button
+              onClick={() => localStorage.removeItem("userEmail")}
+              className="px-4 py-2 bg-blue-500 cursor-pointer rounded-lg text-white"
+            >
+              Sign out
+            </button>
+          )}
         </div>
       </header>
+
       <body className="bg-gray-100 flex flex-row items-start min-h-[100vh]">
         <section
           id="options"
@@ -88,7 +133,44 @@ const Home = () => {
             className="flex items-center space-x-3 p-4 hover:bg-gray-200 rounded-lg cursor-pointer"
           >
             <ion-icon name="person-circle"></ion-icon>
-            <span className="font-semibold">Your profile</span>
+            <Link to={`/user/${userEmail}`} className="font-semibold">
+              Your profile
+            </Link>
+          </div>
+        </section>
+
+        <section
+          id="content"
+          className="mx-64 overflow-y-auto flex-1 mt-4 px-16"
+        >
+          {/* Post Input Section */}
+          <div className="flex flex-row flex-1 bg-white px-4 py-3 space-x-4 items-center rounded-lg mb-4 shadow-sm">
+            <img
+              src={user?.imageUrl}
+              alt="Author Avatar"
+              className="w-[40px] h-[40px] rounded-full"
+            />
+            <input
+              className="focus:outline-none bg-gray-200 flex-1 rounded-3xl p-3 text-md text-gray-700"
+              placeholder="What are you thinking today?"
+            />
+          </div>
+
+          <div className="space-y-4">
+            {loadingPosts ? (
+              <p>Loading posts...</p>
+            ) : (
+              posts?.map((post) => (
+                <Post
+                  key={post.id}
+                  post={post}
+                  authorEmail={post.email}
+                  timeAgo={new Date()}
+                  postImage={"https://via.placeholder.com/600x300"}
+                  comments={0}
+                />
+              ))
+            )}
           </div>
         </section>
 
@@ -98,9 +180,17 @@ const Home = () => {
         >
           <span className="text-md font-bold text-gray-800">Followers</span>
           <div className="flex flex-col gap-3 mt-4">
-            {arr.map((item) => {
-              return <Follower key={item} />;
-            })}
+            {loadingFollowers ? (
+              <p>Loading followers...</p>
+            ) : (
+              followers?.map((follower) => (
+                <Follower
+                  key={follower.email}
+                  name={`${follower.firstName} ${follower.lastName}`}
+                  imageUrl={follower.imageUrl}
+                />
+              ))
+            )}
           </div>
         </section>
       </body>

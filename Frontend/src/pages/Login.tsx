@@ -1,4 +1,5 @@
 // src/pages/FacebookLoginPage.tsx
+import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../apis/api";
@@ -15,9 +16,13 @@ const Login: React.FC = () => {
       const token = await login(email, password);
       console.log("Login successful, token:", token);
       navigate("/home"); // Redirect to the home page
-    } catch (err) {
-      console.error("Login failed:", err);
-      setError(err);
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        console.error("Login failed:", err.response?.data || err.message);
+      } else {
+        setError("Invalid email or password. Please try again.");
+        console.error("Login failed:", err);
+      }
     }
   };
 
