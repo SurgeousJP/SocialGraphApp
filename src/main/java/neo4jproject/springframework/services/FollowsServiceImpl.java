@@ -23,8 +23,8 @@ public class FollowsServiceImpl implements FollowsService {
     }
 
     @Override
-    public void followUser(User user, String userEmailFollow) {
-        followsRepository.addFollows(user.getEmail(), userEmailFollow);
+    public void followUser(String userEmail, String userEmailFollow) {
+        followsRepository.addFollows(userEmail, userEmailFollow);
     }
 
     @Override

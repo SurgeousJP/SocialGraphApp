@@ -13,83 +13,73 @@ const Post = ({
   post: { description, likes },
   author,
   authorImage,
-  timeAgo,
   postImage,
-  comments,
 }: PostProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mb-6 max-w-2xl mx-auto">
-      {/* Post Header */}
-      <div className="flex items-center space-x-4 mb-4">
+    <section id="content" className="mx-60 overflow-y-auto flex-1 mt-4 px-12">
+      {/* Post Input Section */}
+      <div className="flex flex-row flex-1 bg-white px-4 py-3 space-x-4 items-center rounded-lg mb-4 shadow-sm">
         <img
           src={authorImage}
-          alt="Avatar"
-          className="w-12 h-12 rounded-full border-2 border-white"
+          alt="Author Avatar"
+          className="w-[40px] h-[40px] rounded-full"
         />
-        <div>
-          <p className="font-semibold text-gray-800">{author}</p>
-          <p className="text-sm text-gray-500">
-            {timeAgo.toLocaleDateString()}
-          </p>
-        </div>
+        <input
+          className="focus:outline-none bg-gray-200 flex-1 rounded-3xl p-3 text-md text-gray-700"
+          placeholder="What are you thinking today?"
+        />
       </div>
 
       {/* Post Content */}
-      <p className="text-gray-700 text-lg mb-4">{description}</p>
+      <div className="flex flex-col">
+        <div className="flex flex-col bg-white p-3 space-y-3 rounded-t-lg shadow-sm">
+          {/* Post Header */}
+          <div className="flex flex-row items-center space-x-2">
+            <img
+              src={authorImage}
+              alt="Author Avatar"
+              className="w-[40px] h-[40px] rounded-full"
+            />
+            <span className="text-md font-bold">{author.toUpperCase()}</span>
+          </div>
+          {/* Post Description */}
+          <span className="text-md block text-gray-700">
+            {description.toUpperCase()}
+          </span>
+        </div>
 
-      {/* Post Images (Optional) */}
-      <div className="relative mb-4">
-        <img
-          src={postImage}
-          alt="Post Image"
-          className="w-full rounded-lg shadow-md"
-        />
-      </div>
+        {/* Post Image */}
+        {postImage && (
+          <img
+            src={postImage}
+            alt="Post Visual"
+            className="w-full rounded-lg shadow-md"
+          />
+        )}
 
-      {/* Post Actions */}
-      <div className="flex space-x-6 text-gray-600">
-        <button className="flex items-center space-x-2 hover:text-blue-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-5 h-5"
-          >
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-4H7v-2h4V8h2v4h4v2h-4v4z" />
-          </svg>
-          <span>Like</span>
-        </button>
-        <button className="flex items-center space-x-2 hover:text-blue-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-5 h-5"
-          >
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-4H7v-2h4V8h2v4h4v2h-4v4z" />
-          </svg>
-          <span>Comment</span>
-        </button>
-        <button className="flex items-center space-x-2 hover:text-blue-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-5 h-5"
-          >
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-4H7v-2h4V8h2v4h4v2h-4v4z" />
-          </svg>
-          <span>Share</span>
-        </button>
+        {/* Post Actions */}
+        <div className="flex flex-row justify-between rounded-b-lg py-2 bg-white shadow-sm px-3">
+          {/* Likes */}
+          <div className="flex flex-row items-center space-x-1">
+            <img
+              className="w-[18px] h-[18px] rounded-full"
+              src="https://images.vexels.com/content/223246/preview/like-icon-flat-8f6a3f.png"
+              alt="Like Icon"
+            />
+            <span className="text-blue-500 font-medium">{likes}</span>
+          </div>
+          {/* Action Buttons */}
+          <div className="flex flex-row space-x-1 items-center">
+            <ion-icon
+              className="text-gray-500"
+              name="thumbs-up"
+              size="small"
+            ></ion-icon>
+            <span>Like</span>
+          </div>
+        </div>
       </div>
-
-      {/* Post Footer (Optional) */}
-      <div className="mt-4 text-sm text-gray-500">
-        <p>
-          {likes} likes | {comments} comments
-        </p>
-      </div>
-    </div>
+    </section>
   );
 };
 

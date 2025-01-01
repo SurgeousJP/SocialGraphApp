@@ -26,18 +26,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) {
         User user = userRepository.getByEmail(authRequest.email);
 
-        if (user == null){
-            return "User not found for validation";
+        if (user == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
 
         if (!user.getPassword().equals(authRequest.password)) {
-            return "Invalid Credentials" + " User password: " + user.getPassword() + "Auth request: " + authRequest.password;
+            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
         }
 
-        return jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail());
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 }
 

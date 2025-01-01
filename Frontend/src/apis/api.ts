@@ -24,6 +24,28 @@ const api = axios.create({
   baseURL: "http://localhost:3000/rest/neo4j",
 });
 
+// Login user, get JWT token, and save email to local storage
+export const login = async (
+  email: string,
+  password: string
+): Promise<string> => {
+  try {
+    const response = await axios.post("http://localhost:3000/auth/login", {
+      email,
+      password,
+    });
+    const token = response.data; // Assuming the response body is the token
+
+    // Save email to local storage on successful login
+    localStorage.setItem("userEmail", email);
+
+    return token;
+  } catch (error) {
+    console.error("Error during login:", error);
+    throw error;
+  }
+};
+
 // Fetch user data by email
 export const getUserByEmail = async (email: string): Promise<IUserData> => {
   try {

@@ -1,7 +1,26 @@
 // src/pages/FacebookLoginPage.tsx
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "../apis/api";
 
 const Login: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const token = await login(email, password);
+      console.log("Login successful, token:", token);
+      navigate("/home"); // Redirect to the home page
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError(err);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-100">
       <div className="w-full max-w-4xl flex bg-white shadow-lg rounded-md overflow-hidden">
@@ -13,11 +32,14 @@ const Login: React.FC = () => {
         </div>
 
         <div className="w-1/2 p-10 flex flex-col justify-center">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleLogin}>
+            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
             <div>
               <input
                 type="text"
                 placeholder="Email or Phone Number"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -25,6 +47,8 @@ const Login: React.FC = () => {
               <input
                 type="password"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full border border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>

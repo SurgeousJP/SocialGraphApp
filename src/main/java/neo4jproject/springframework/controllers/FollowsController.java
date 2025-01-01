@@ -17,16 +17,17 @@ public class FollowsController {
     }
 
     @PostMapping(
-            value = "/followUser",
+            value = "/users/{userEmail}/follow/{userEmailToFollow}",
             produces = {"application/json"}
     )
-    public HttpStatus followUser(@RequestBody(required = true) User user, @RequestParam("mail")String userEmailFollow) {
+    public ResponseEntity<HttpStatus> followUser(@PathVariable("userEmail") String userEmail, @PathVariable("userEmailToFollow") String userEmailFollow) 
+    {
         try {
-            followsService.followUser(user, userEmailFollow);
+            followsService.followUser(userEmail, userEmailFollow);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (RuntimeException e) {
-            return HttpStatus.BAD_REQUEST;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return HttpStatus.ACCEPTED;
     }
 
     @DeleteMapping(
