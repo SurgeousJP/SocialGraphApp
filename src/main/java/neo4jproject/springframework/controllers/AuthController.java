@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/auth")
@@ -30,11 +31,11 @@ public class AuthController {
         User user = userRepository.getByEmail(authRequest.email);
 
         if (user == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User not found for validation", HttpStatus.NOT_FOUND);
         }
 
         if (!user.getPassword().equals(authRequest.password)) {
-            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Invalid Credentials", HttpStatus.UNAUTHORIZED);
         }
 
         String token = jwtUtil.generateToken(user.getEmail());

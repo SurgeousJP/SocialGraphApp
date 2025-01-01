@@ -20,13 +20,13 @@ public class FollowsController {
             value = "/users/{userEmail}/follow/{userEmailToFollow}",
             produces = {"application/json"}
     )
-    public ResponseEntity<HttpStatus> followUser(@PathVariable("userEmail") String userEmail, @PathVariable("userEmailToFollow") String userEmailFollow) 
+    public HttpStatus followUser(@PathVariable("userEmail") String userEmail, @PathVariable("userEmailToFollow") String userEmailFollow) 
     {
         try {
             followsService.followUser(userEmail, userEmailFollow);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return HttpStatus.CREATED;
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return HttpStatus.BAD_REQUEST;
         }
     }
 
