@@ -213,6 +213,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get User Who Like a Post",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -341,6 +349,39 @@
 								{
 									"key": "mail",
 									"value": "Firefly@example.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Disliked Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"description\": \"Lingsha Post F\",\r\n    \"likes\": 0,\r\n    \"email\": \"Firefly@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{graph-server}}/post/dislikePost?mail=Aglaea@example.com",
+							"host": [
+								"{{graph-server}}"
+							],
+							"path": [
+								"post",
+								"dislikePost"
+							],
+							"query": [
+								{
+									"key": "mail",
+									"value": "Aglaea@example.com"
 								}
 							]
 						}

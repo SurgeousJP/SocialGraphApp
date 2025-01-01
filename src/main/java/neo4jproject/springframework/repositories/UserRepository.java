@@ -47,4 +47,9 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
 
     @Query("MATCH (u:User {email: $email})<-[f:Follows]-(p:User) RETURN DISTINCT (p)")
     Collection<User> getAllFollowersOfUser(@Param("email") String email);
+
+    @Query("MATCH (u:User)-[:Liked]->(p:Post)\n" +
+            "WHERE id(p) = $postId\n" +
+            "RETURN u")
+    Collection<User> getUsersWhoLikePost(@Param("postId") Long postId);
 }

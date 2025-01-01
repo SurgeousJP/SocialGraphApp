@@ -22,5 +22,11 @@ public class LikedServiceImpl implements LikedService {
     @Override
     public void addLikedPost(String likeEmail, Long postId) {
         likedRepository.addLiked(likeEmail, postId);
+        likedRepository.incrementLikes(postId);
+    }
+    @Override
+    public void dislikedPost(String likeEmail, Long postId) {
+        likedRepository.removeLiked(likeEmail, postId);
+        likedRepository.decrementLikes(postId);
     }
 }
