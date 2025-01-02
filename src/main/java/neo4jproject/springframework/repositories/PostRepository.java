@@ -24,13 +24,13 @@ public interface PostRepository extends Neo4jRepository<Post, Long> {
             "return n")
     Post getById(@Param("postId") Long postId);
 
-    @Query("MATCH (n:Post) return n")
+    @Query("MATCH (n:Post) RETURN DISTINCT n")
     Collection<Post> getAllPosts();
 
-    @Query("MATCH(n:User{email: $mail})--(p:User)--(d:Post) return d")
+    @Query("MATCH(n:User{email: $mail})--(p:User)--(d:Post) RETURN DISTINCT d")
     Collection<Post> findMyFollowersPost(@Param("mail") String email);
 
-    @Query("MATCH(n:User{email: $mail})-[l:Liked]->(d:Post) return d")
+    @Query("MATCH(n:User{email: $mail})-[l:Liked]->(d:Post) RETURN DISTINCT d")
     Collection<Post> findLikedPosts(@Param("mail") String email);
 
     @Query("MATCH (a: User)-[r:Posted]->(b: Post) "

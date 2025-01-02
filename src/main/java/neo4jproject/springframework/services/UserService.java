@@ -28,4 +28,5 @@ public interface UserService {
     void deleteProfile(User user);
 
     Collection<User> getAllFollowersOfUser(String email);
+    Collection<User> getUserWhoLikePost(Long postId);
 }

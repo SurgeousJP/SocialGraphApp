@@ -9,4 +9,5 @@ public interface LikedService {
     List<Liked> listAll();
 
     void addLikedPost(String likeEmail, Long postId);
+    void dislikedPost(String likeEmail, Long postId);
 }

@@ -3,6 +3,7 @@ package neo4jproject.springframework.controllers;
 import neo4jproject.springframework.domain.User;
 import neo4jproject.springframework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,5 +85,11 @@ public class UserController {
     )
     public Collection<User> getAll(@PathVariable("email")String email) {
         return userService.getAllFollowersOfUser(email);
+    }
+    @GetMapping(
+            value = ""
+    )
+    public Collection<User> getAllUserWhoLikePost(@RequestParam("postId") Long postId) {
+        return userService.getUserWhoLikePost(postId);
     }
 }

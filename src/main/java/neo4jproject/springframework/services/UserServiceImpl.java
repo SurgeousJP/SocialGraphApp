@@ -83,4 +83,9 @@ public class UserServiceImpl implements UserService {
     public Collection<User> getAllFollowersOfUser(String email) {
         return userRepository.getAllFollowersOfUser(email);
     }
+
+    @Override
+    public Collection<User> getUserWhoLikePost(Long postId) {
+        return userRepository.getUsersWhoLikePost(postId);
+    }
 }

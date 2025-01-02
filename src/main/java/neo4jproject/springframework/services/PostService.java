@@ -1,10 +1,12 @@
 package neo4jproject.springframework.services;
 
 import neo4jproject.springframework.domain.Post;
+import neo4jproject.springframework.domain.PostDTO;
 import neo4jproject.springframework.domain.User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface PostService {
     List<Post> listAll();

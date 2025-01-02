@@ -1,6 +1,7 @@
 package neo4jproject.springframework.services;
 
 import neo4jproject.springframework.domain.Post;
+import neo4jproject.springframework.domain.PostDTO;
 import neo4jproject.springframework.domain.User;
 import neo4jproject.springframework.repositories.PostRepository;
 import neo4jproject.springframework.repositories.PostedRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PostServiceImpl implements PostService{
