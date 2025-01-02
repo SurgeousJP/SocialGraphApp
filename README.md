@@ -1,6 +1,6 @@
 # Social Graph App
 
-A Social Graph backend based on Neo4j graph database & Java Spring
+A Social Graph backend based on Neo4j graph database & Java Spring Boot
 
 ## Features
 - Create users, posts
