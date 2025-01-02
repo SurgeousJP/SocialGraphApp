@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { getUserByEmail, IPost, likePost } from "../apis/api";
+import {
+  getAllUsersByPostId,
+  getUserByEmail,
+  IPost,
+  likePost,
+  unlikePost,
+} from "../apis/api";
 
 // Interface for the Post component props
 interface PostProps {
@@ -13,7 +19,7 @@ interface PostProps {
 const Post = ({ post: { description, likes, id }, authorEmail }: PostProps) => {
   const [authorName, setAuthorName] = useState<string>("");
   const [authorImage, setAuthorImage] = useState<string>("");
-  const [postLikes, setPostLikes] = useState<number>(likes); // Track likes for the current post
+  const [postLikes, setPostLikes] = useState<number>(likes);
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,22 +37,45 @@ const Post = ({ post: { description, likes, id }, authorEmail }: PostProps) => {
     fetchAuthorData();
   }, [authorEmail]);
 
+  useEffect(() => {
+    const fetchUsersByPostId = async () => {
+      try {
+        const users = await getAllUsersByPostId(id);
+        console.log("Post", id, "Liked user", users);
+
+        // Check if the current user has liked the post
+        const userEmail = localStorage.getItem("userEmail");
+        if (userEmail) {
+          const likedByCurrentUser = users.some(
+            (user) => user.email === userEmail
+          );
+          setIsLiked(likedByCurrentUser);
+        }
+      } catch (error) {
+        console.error("Error fetching users by post ID:", error);
+      }
+    };
+
+    fetchUsersByPostId();
+  }, [id]);
+
   const handleLikePost = async () => {
     const userEmail = localStorage.getItem("userEmail");
 
     if (userEmail) {
       setIsLoading(true);
       try {
-        const updatedPost = await likePost(
-          userEmail,
-          id,
-          description,
-          postLikes
-        );
-        setPostLikes(updatedPost.likes);
-        setIsLiked(true);
+        if (isLiked) {
+          await unlikePost(userEmail, id, description, postLikes);
+          setPostLikes(postLikes - 1);
+          setIsLiked(false);
+        } else {
+          await likePost(userEmail, id, description, postLikes);
+          setPostLikes(postLikes + 1);
+          setIsLiked(true);
+        }
       } catch (error) {
-        console.error("Error handling like post:", error);
+        console.error("Error handling like/unlike post:", error);
       } finally {
         setIsLoading(false);
       }

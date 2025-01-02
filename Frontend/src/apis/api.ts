@@ -116,3 +116,38 @@ export const likePost = async (
     throw error;
   }
 };
+export const unlikePost = async (
+  email: string,
+  postId: number,
+  description: string,
+  likes: number
+): Promise<IPost> => {
+  try {
+    const response = await api.post(
+      `/post/dislikePost?mail=${encodeURIComponent(email)}`,
+      {
+        id: postId,
+        description,
+        likes: likes - 1,
+        email,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error unliking the post:", error);
+    throw error;
+  }
+};
+// Fetch all users by a specific post ID
+export const getAllUsersByPostId = async (
+  postId: number
+): Promise<IUserData[]> => {
+  try {
+    const response = await api.get<IUserData[]>(`/user?postId=${postId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching users by post ID:", error);
+    throw error;
+  }
+};
