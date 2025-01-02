@@ -23,6 +23,3 @@ Step 4: Install Postman or use cURL commands to test the available routes (Postm
 
 Step 5: Use Postman to execute the routes and test the application's functionality. This allows you to verify that the routes are working as intended and explore the application's features interactively.
 ![image](https://github.com/user-attachments/assets/a32c460f-7428-4918-8313-dfe75dd563e4)
-
-## Note
-Please note that upon the first time run the data is empty (due to the database is local), please create your own data for testing using the APIs
