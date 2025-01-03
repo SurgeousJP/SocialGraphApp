@@ -2,6 +2,7 @@ import "ionicons/icons";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  addNewPost,
   getAllFollowersByEmail,
   getFollowerPostByEmail,
   getUserByEmail, // Make sure to import the new function
@@ -18,6 +19,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [loadingFollowers, setLoadingFollowers] = useState(false); // Add state for loading followers
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [newPostText, setNewPostText] = useState(""); // New post text
   const userEmail = localStorage.getItem("userEmail");
   const navigate = useNavigate();
 
@@ -67,7 +70,22 @@ const Home = () => {
       setLoadingFollowers(false);
     }
   };
+  const handleAddPost = async () => {
+    if (!newPostText.trim()) return;
 
+    try {
+      await addNewPost({
+        description: newPostText,
+        email: userEmail ?? "",
+        likes: 0,
+      });
+      setNewPostText("");
+      setIsModalOpen(false);
+      fetchPosts(userEmail ?? ""); // Refresh posts
+    } catch (error) {
+      console.error("Error adding new post:", error);
+    }
+  };
   return (
     <div className="">
       <header className="bg-white sticky top-0 left-0 right-0 flex justify-between p-4 items-center border-box h-[72px] border-b border-gray-300">
@@ -101,7 +119,10 @@ const Home = () => {
             </Link>
           ) : (
             <button
-              onClick={() => localStorage.removeItem("userEmail")}
+              onClick={() => {
+                navigate("/login");
+                localStorage.removeItem("userEmail");
+              }}
               className="px-4 py-2 bg-blue-500 cursor-pointer rounded-lg text-white"
             >
               Sign out
@@ -150,10 +171,14 @@ const Home = () => {
               alt="Author Avatar"
               className="w-[40px] h-[40px] rounded-full"
             />
-            <input
-              className="focus:outline-none bg-gray-200 flex-1 rounded-3xl p-3 text-md text-gray-700"
-              placeholder="What are you thinking today?"
-            />
+            <div
+              onClick={() => setIsModalOpen(true)}
+              className="focus:outline-none bg-gray-200 flex-1 rounded-3xl p-3 text-md"
+            >
+              <span className="text-gray-500">
+                What are you thinking today?
+              </span>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -184,7 +209,7 @@ const Home = () => {
               <p>Loading followers...</p>
             ) : (
               followers?.map((follower) => (
-                <Link to={`/user/${follower.email}`}>
+                <Link to={`/user/${userEmail}`}>
                   <Follower
                     key={follower.email}
                     name={`${follower.firstName} ${follower.lastName}`}
@@ -195,6 +220,42 @@ const Home = () => {
             )}
           </div>
         </section>
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg mx-4 relative">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+                Create a Post
+              </h2>
+              <textarea
+                className="w-full border border-gray-200 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent resize-none shadow-sm"
+                rows={5}
+                value={newPostText}
+                onChange={(e) => setNewPostText(e.target.value)}
+                placeholder="What's on your mind?"
+              ></textarea>
+              <div className="flex justify-end space-x-3">
+                <button
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow-sm hover:bg-gray-300 transition-all"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all"
+                  onClick={handleAddPost}
+                >
+                  Post
+                </button>
+              </div>
+              <button
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-all"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <ion-icon name="close-outline" size="large"></ion-icon>
+              </button>
+            </div>
+          </div>
+        )}
       </body>
     </div>
   );

@@ -31,12 +31,12 @@ public class FollowsController {
     }
 
     @DeleteMapping(
-            value = "/unfollowUser",
+            value = "/users/{userEmail}/unfollow/{userEmailToUnFollow}",
             produces = {"application/json"}
     )
-    public HttpStatus unfollowUser(@RequestBody(required = true) User user, @RequestParam("mail")String userEmailFollow) {
+    public HttpStatus unfollowUser(@PathVariable("userEmail") String userEmail, @PathVariable("userEmailToUnFollow") String userEmailFollow) {
         try {
-            followsService.unfollowUser(user, userEmailFollow);
+            followsService.unfollowUser(userEmail, userEmailFollow);
         } catch (RuntimeException e) {
             return HttpStatus.BAD_REQUEST;
         }

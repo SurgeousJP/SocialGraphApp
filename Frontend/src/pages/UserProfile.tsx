@@ -76,8 +76,7 @@ const UserProfile = () => {
           {postData.map((post) => (
             <Post
               post={post}
-              author={`${userData.firstName} ${userData.lastName}`}
-              authorImage={userData.imageUrl}
+              authorEmail={userData.email}
               timeAgo={new Date()}
               postImage={"https://via.placeholder.com/600x300"}
               comments={0}

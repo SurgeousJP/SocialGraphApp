@@ -19,10 +19,30 @@ export interface IUserData {
   myPosts: IPost[];
 }
 
+export interface AddPostRequest {
+  description: string;
+  likes?: number; // Default to 0 if not provided
+  email: string;
+}
+
 // Axios instance for making API calls
 const api = axios.create({
   baseURL: "http://localhost:3000/rest/neo4j",
 });
+
+export const addNewPost = async (postData: AddPostRequest): Promise<void> => {
+  try {
+    await api.post(`/post/addPost`, postData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("Post added successfully!");
+  } catch (error) {
+    console.error("Error adding new post:", error);
+    throw error;
+  }
+};
 
 // Login user, get JWT token, and save email to local storage
 export const login = async (
@@ -148,6 +168,43 @@ export const getAllUsersByPostId = async (
     return response.data;
   } catch (error) {
     console.error("Error fetching users by post ID:", error);
+    throw error;
+  }
+};
+export const isFollowUser = async (email: string): Promise<boolean> => {
+  try {
+    const userEmail = localStorage.getItem("userEmail");
+    const response = await api.get<boolean>(
+      `/follows/getFollowing/${userEmail}/${email}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching is following:", error);
+    throw error;
+  }
+};
+
+export const followUser = async (email: string): Promise<string> => {
+  try {
+    const userEmail = localStorage.getItem("userEmail");
+    const response = await api.get<string>(
+      `/users/${userEmail}/follow/${email}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error folowing:", error);
+    throw error;
+  }
+};
+export const unfollowUser = async (email: string): Promise<string> => {
+  try {
+    const userEmail = localStorage.getItem("userEmail");
+    const response = await api.get<string>(
+      `/users/${userEmail}/unfollow/${email}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error unfolowing:", error);
     throw error;
   }
 };

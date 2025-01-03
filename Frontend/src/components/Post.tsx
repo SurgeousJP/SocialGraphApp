@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   getAllUsersByPostId,
   getUserByEmail,
@@ -86,20 +87,21 @@ const Post = ({ post: { description, likes, id }, authorEmail }: PostProps) => {
     <div className="flex flex-col">
       <div className="flex flex-col bg-white p-3 space-y-3 rounded-t-lg shadow-sm">
         {/* Post Header */}
-        <div className="flex flex-row items-center space-x-2">
+        <Link
+          to={`/user/${authorEmail}`}
+          className="flex w-fit flex-row items-center space-x-2"
+        >
           <img
             src={authorImage || "default-avatar-url.jpg"} // Fallback to a default avatar
             alt="Author Avatar"
             className="w-[40px] h-[40px] rounded-full"
           />
           <span className="text-md font-bold">
-            {authorName.toUpperCase() || "Loading..."}
+            {authorName || "Loading..."}
           </span>
-        </div>
+        </Link>
         {/* Post Description */}
-        <span className="text-md block text-gray-700">
-          {description.toUpperCase()}
-        </span>
+        <span className="text-md block text-gray-700">{description}</span>
       </div>
 
       {/* Post Actions */}

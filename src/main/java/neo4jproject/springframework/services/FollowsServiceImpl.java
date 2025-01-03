@@ -28,8 +28,8 @@ public class FollowsServiceImpl implements FollowsService {
     }
 
     @Override
-    public void unfollowUser(User user, String userEmailFollow) {
-        followsRepository.deleteFollow(user.getEmail(), userEmailFollow);
+    public void unfollowUser(String userEmail, String userEmailFollow) {
+        followsRepository.deleteFollow(userEmail, userEmailFollow);
     }
 
     @Override

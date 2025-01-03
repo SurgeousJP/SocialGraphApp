@@ -1,6 +1,6 @@
 // src/pages/FacebookLoginPage.tsx
 import { AxiosError } from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../apis/api";
 
@@ -9,7 +9,13 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const userEmail = localStorage.getItem("userEmail");
 
+  useEffect(() => {
+    if (userEmail) {
+      navigate("/home");
+    }
+  }, []);
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
