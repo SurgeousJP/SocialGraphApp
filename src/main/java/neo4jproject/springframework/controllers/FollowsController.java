@@ -46,7 +46,7 @@ public class FollowsController {
     @GetMapping(
             value = "/isFollowing/{mail1}/{mail2}"
     )
-    public boolean getFollowing(@PathVariable("mail1")String email, @PathVariable("mail2")String myEmail) {
+    public boolean getIsFollowing(@PathVariable("mail1")String email, @PathVariable("mail2")String myEmail) {
         return followsService.isFollow(email, myEmail);
     }
 

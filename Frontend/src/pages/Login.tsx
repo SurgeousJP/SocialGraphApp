@@ -24,6 +24,7 @@ const Login: React.FC = () => {
       navigate("/home"); // Redirect to the home page
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
+        setError(err.response?.data);
         console.error("Login failed:", err.response?.data || err.message);
       } else {
         setError("Invalid email or password. Please try again.");

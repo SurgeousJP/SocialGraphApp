@@ -187,8 +187,8 @@ export const isFollowUser = async (email: string): Promise<boolean> => {
 export const followUser = async (email: string): Promise<string> => {
   try {
     const userEmail = localStorage.getItem("userEmail");
-    const response = await api.get<string>(
-      `/users/${userEmail}/follow/${email}`
+    const response = await api.post<string>(
+      `/follows/users/${userEmail}/follow/${email}`
     );
     return response.data;
   } catch (error) {
@@ -199,8 +199,8 @@ export const followUser = async (email: string): Promise<string> => {
 export const unfollowUser = async (email: string): Promise<string> => {
   try {
     const userEmail = localStorage.getItem("userEmail");
-    const response = await api.get<string>(
-      `/users/${userEmail}/unfollow/${email}`
+    const response = await api.delete<string>(
+      `/follows/users/${userEmail}/unfollow/${email}`
     );
     return response.data;
   } catch (error) {
