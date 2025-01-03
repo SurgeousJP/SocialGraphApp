@@ -52,9 +52,9 @@ public class FollowsController {
     }
 
     @GetMapping(
-        value = "/getFollowing/{mail1}/{mail2}"
+        value = "/getAllFollowers/{mail1}"
     )
-    public List<Follows> getFollowing(@PathVariable("mail1")String email, @PathVariable("mail2")String myEmail) {
-        return followsService.getMyFollows(email, myEmail);
+    public Collection<Follows> getFollowing(@PathVariable("mail1")String email) {
+        return followsService.getMyFollows(email);
     }
 }

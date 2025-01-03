@@ -38,8 +38,8 @@ public class FollowsServiceImpl implements FollowsService {
     }
 
     @Override
-    public List<Follows> getMyFollows(String email, String myEmail) {
-        Collection<Follows> followsCollection = followsRepository.getMyFollows(email, myEmail);
-        return new ArrayList<>(followsCollection); // Convert Collection to List    
+    Collection<User> getMyFollows(String email);
+    {
+        return followsRepository.getMyFollows(email, myEmail); 
     }
 }

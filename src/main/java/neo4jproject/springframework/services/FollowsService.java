@@ -14,5 +14,5 @@ public interface FollowsService {
     void unfollowUser(String userEmail, String userEmailFollow);
 
     boolean isFollow(String email, String myEmail);
-    List<Follows> getMyFollows(String email, String myEmail);
+    Collection<User> getMyFollows(String email);
 }

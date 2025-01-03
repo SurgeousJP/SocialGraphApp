@@ -22,7 +22,19 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const [newPostText, setNewPostText] = useState(""); // New post text
   const userEmail = localStorage.getItem("userEmail");
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (searchQuery) {
+      navigate(`/user/${searchQuery}`);
+    }
+  };
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery) {
+      navigate(`/user/${searchQuery}`);
+    }
+  };
 
   useEffect(() => {
     if (userEmail) {
@@ -100,11 +112,15 @@ const Home = () => {
             <input
               className="focus:outline-none bg-gray-200"
               placeholder="Search users"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyPress} // Trigger on Enter key
             />
             <ion-icon
-              className="text-gray-500"
+              className="text-gray-500 cursor-pointer"
               name="search"
               size="small"
+              onClick={handleSearch} // Trigger on icon click
             ></ion-icon>
           </div>
         </div>
