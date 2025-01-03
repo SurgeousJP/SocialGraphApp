@@ -33,7 +33,12 @@ public class FollowsServiceImpl implements FollowsService {
     }
 
     @Override
-    public boolean getMyFollows(String email, String myEmail) {
-        return followsRepository.getMyFollows(email, myEmail) > 0;
+    public boolean isFollow(String email, String myEmail) {
+        return followsRepository.isFollow(email, myEmail) > 0;
+    }
+
+    @Override
+    public List<Follows> getMyFollows(String email, String myEmail) {
+        return followsRepository.getMyFollows(email, myEmail);
     }
 }
