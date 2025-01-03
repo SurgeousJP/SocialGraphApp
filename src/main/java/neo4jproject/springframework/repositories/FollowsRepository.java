@@ -22,6 +22,6 @@ public interface FollowsRepository extends Neo4jRepository<Follows, Long> {
     @Query("MATCH(n:User {email: $user1})-[r:Follows {following: $user2}]->() DELETE (r)")
     void deleteFollow(@Param("user1")String email, @Param("user2")String userEmailFollow);
 
-    @Query("MATCH(n:User {email: $user2})-[r:Follows{following: $user1}]->() RETURN (r)")
-    Collection<Follows> getMyFollows(@Param("user1")String email, @Param("user2")String myEmail);
+    @Query("MATCH (n:User {email: $user2})-[r:Follows {following: $user1}] ->() RETURN COUNT(r)")
+    Collection<Long> getMyFollows(@Param("user1") String email, @Param("user2") String myEmail);
 }

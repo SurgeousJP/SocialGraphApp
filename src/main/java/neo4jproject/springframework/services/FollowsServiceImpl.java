@@ -34,6 +34,6 @@ public class FollowsServiceImpl implements FollowsService {
 
     @Override
     public boolean getMyFollows(String email, String myEmail) {
-        return followsRepository.getMyFollows(email, myEmail).isEmpty();
+        return followsRepository.getMyFollows(email, myEmail).get(0) > 0;
     }
 }
