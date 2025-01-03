@@ -40,6 +40,6 @@ public class FollowsServiceImpl implements FollowsService {
     @Override
     public Collection<User> getMyFollows(String email)
     {
-        return followsRepository.getAllFollowers(email, myEmail); 
+        return followsRepository.getAllFollowers(email); 
     }
 }
