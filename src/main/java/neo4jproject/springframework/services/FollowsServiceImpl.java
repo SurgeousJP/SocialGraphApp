@@ -38,7 +38,7 @@ public class FollowsServiceImpl implements FollowsService {
     }
 
     @Override
-    Collection<User> getMyFollows(String email);
+    public Collection<User> getMyFollows(String email)
     {
         return followsRepository.getMyFollows(email, myEmail); 
     }
