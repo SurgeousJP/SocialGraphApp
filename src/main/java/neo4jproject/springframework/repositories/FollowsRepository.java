@@ -13,13 +13,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public interface FollowsRepository extends Neo4jRepository<Follows, Long> {
-    @Query("MATCH\n" +
-            "(a:User),\n" +
-            "(b:User)\n" +
-            "WHERE a.email = $user1 AND b.email = $user2\n" +
-            "CREATE (a)-[r:Follows{following: b.email}]->(b)\n" +
-            "RETURN type(r)")
-    void addFollows(@Param("user1")String email1, @Param("user2") String email2);
+    @Query("MATCH (a:User {email: $user1}) " +
+        "MATCH (b:User {email: $user2}) " +
+        "CREATE (a)-[r:Follows {following: b.email}]->(b) " +
+        "RETURN type(r)")
+    void addFollows(@Param("user1") String email1, @Param("user2") String email2);
 
     @Query("MATCH(n:User {email: $user1})-[r:Follows {following: $user2}]->() DELETE (r)")
     void deleteFollow(@Param("user1")String email, @Param("user2")String userEmailFollow);
