@@ -175,7 +175,7 @@ export const isFollowUser = async (email: string): Promise<boolean> => {
   try {
     const userEmail = localStorage.getItem("userEmail");
     const response = await api.get<boolean>(
-      `/follows/getFollowing/${userEmail}/${email}`
+      `/follows/isFollowing/${userEmail}/${email}`
     );
     return response.data;
   } catch (error) {
