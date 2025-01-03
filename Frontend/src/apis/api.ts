@@ -66,6 +66,60 @@ export const login = async (
   }
 };
 
+// add interceptor that log request
+api.interceptors.request.use((config) => {
+  console.log("Request:", config);
+  return config;
+});
+
+export const register = async (
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string,
+  imageUrl: string
+): Promise<string> => {
+  try {
+    const response = await api.post("/user/addUser", {
+      email,
+      imageUrl,
+      firstName,
+      lastName,
+      password,
+    });
+
+    const token = response.data; // Assuming the response body is the token
+    return token;
+  } catch (error) {
+    console.error("Error during registration:", error);
+    throw error;
+  }
+};
+// src/apis/api.ts
+export const uploadImage = async (file: File): Promise<string> => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await api.post(
+      "http://localhost:3000/media/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log("Image uploaded successfully:", response.data);
+    // Assuming the response contains a URL to the uploaded image
+    const imageUrl = response.data.url;
+    return imageUrl;
+  } catch (error) {
+    console.error("Error during image upload:", error);
+    throw error;
+  }
+};
+
 // Fetch user data by email
 export const getUserByEmail = async (email: string): Promise<IUserData> => {
   try {
