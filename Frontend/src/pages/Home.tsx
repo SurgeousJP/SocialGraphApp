@@ -225,7 +225,7 @@ const Home = () => {
               <p>Loading followers...</p>
             ) : (
               followers?.map((follower) => (
-                <Link to={`/user/${userEmail}`}>
+                <Link to={`/user/${follower.email}`}>
                   <Follower
                     key={follower.email}
                     name={`${follower.firstName} ${follower.lastName}`}
